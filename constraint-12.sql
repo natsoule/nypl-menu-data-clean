@@ -1,5 +1,5 @@
 --duplicate menu
-SELECT m1.*, m2.* AS duplicate_id FROM Menu m1
+SELECT DISTINCT m1.* FROM Menu m1
 INNER JOIN Menu m2
 WHERE m1.id!=m2.id AND 
 m1.sponsor=m2.sponsor AND
