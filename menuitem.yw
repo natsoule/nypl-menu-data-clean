@@ -1,0 +1,82 @@
+#@begin MenuItem_OR #@desc MenuItem OpenRefine Workflow
+#@in menuitem
+#@out menuitem_clean
+#@begin core/text-transform0#@desc Convert column id to number
+#@param col-name:id
+#@in menuitem
+#@out idv1
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Convert column menu_page_id to number
+#@param col-name:menu_page_id
+#@in menuitem
+#@out menu_page_idv1
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Convert column price to number
+#@param col-name:price
+#@in menuitem
+#@out pricev1
+#@end core/text-transform2
+#@begin core/text-transform3#@desc Convert high_price to number
+#@param col-name:high_price
+#@in menuitem
+#@out high_pricev1
+#@end core/text-transform3
+#@begin core/text-transform4#@desc Convert column dish_id to number
+#@param col-name:dish_id
+#@in menuitem
+#@out dish_idv1
+#@end core/text-transform4
+#@begin core/column-addition0#@desc Create column created_at_utc based on column created_at
+#@param col-name:created_at
+#@param expression:jython:value.replace('UTC','').strip()
+#@in created_atv1
+#@out created_at_utcv1
+#@end core/column-addition0
+#@begin core/column-copy0#@desc Columns created_at and updated_at copied without changes
+#@param col-name:created_at
+#@param col-name:updated_at
+#@in menuitem
+#@out created_atv1
+#@out updated_atv1
+#@end core/column-copy
+#@begin core/text-transform5#@desc Convert column created_at_utc to date
+#@param col-name:created_at_utc
+#@in created_at_utcv1
+#@out created_at_utcv2
+#@end core/text-transform5
+#@begin core/column-addition1#@desc Create column updated_at_utc based on column updated_at
+#@param col-name:updated_at
+#@param expression:jython:value.replace('UTC','').strip()
+#@in updated_atv1
+#@out updated_at_utcv1
+#@end core/column-addition1
+#@begin core/text-transform6#@desc Convert column updated_at_utc to date
+#@param col-name:updated_at_utc
+#@in updated_at_utcv1
+#@out updated_at_utcv2
+#@end core/text-transform6
+#@begin core/text-transform7#@desc Convert column xpos to number
+#@param col-name:xpos
+#@in menuitem
+#@out xposv1
+#@end core/text-transform7
+#@begin core/text-transform8#@desc Convert column ypos to number
+#@param col-name:ypos
+#@in menuitem
+#@out yposv1
+#@end core/text-transform8
+#@begin core/combine-columns@desc Combine clean data
+#@in idv1
+#@in menu_page_idv1
+#@in pricev1
+#@in high_pricev1
+#@in dish_idv1
+#@in xposv1
+#@in yposv1
+#@in created_atv1
+#@in created_at_utcv2
+#@in updated_atv1
+#@in updated_at_utcv2
+#@out menuitem_clean
+#@end core/combine-columns
+#@end MenuItem_OR

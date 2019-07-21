@@ -8,7 +8,7 @@
 #@in dish
 #@out first_appearedv1
 #@out last_appearedv1
-#@end core/column-copy
+#@end core/column-copy0
 #@begin core/text-transform0#@desc Convert column id to number
 #@param col-name:id
 #@in dish
@@ -60,7 +60,7 @@
 #@end core/text-transform5
 #@begin core/column-addition2#@desc Create column first_appeared_clean based on column first_appeared
 #@param col-name:first_appeared
-#@in dish
+#@in first_appearedv1
 #@out first_appeared_cleanv1
 #@end core/column-addition2
 #@begin core/mass-edit1#@desc Set value 0 in column first_appeared_clean to blank
@@ -85,7 +85,7 @@
 #@end core/text-transform6
 #@begin core/column-addition3#@desc Create column last_appeared_clean based on column last_appeared
 #@param col-name:last_appeared
-#@in dish
+#@in last_appearedv1
 #@out last_appeared_cleanv1
 #@end core/column-addition3
 #@begin core/mass-edit4#@desc Set value 0 in column last_appeared_clean to blank
