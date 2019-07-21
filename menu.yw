@@ -1,5 +1,5 @@
-#@begin Parallel_OR 
-#@desc Parallel OpenRefine Workflow
+#@begin Menu_OR 
+#@desc Menu OpenRefine Workflow
 #@in menu
 #@out menu_clean
 #@begin core/text-transform0#@desc Convert column id to number
@@ -458,4 +458,4 @@
 #@in dish_countv1
 #@out menu_clean
 #@end core/combine-columns
-#@end Parallel_OR
+#@end Menu_OR
