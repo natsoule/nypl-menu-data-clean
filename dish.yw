@@ -2,135 +2,135 @@
 #@desc Dish OpenRefine Workflow
 #@in dish
 #@out dish_clean
-#@begin core/column-copy0#@desc Columns first_appeared and last_appeared copied without changes
-#@param col-name:first_appeared
-#@param col-name:last_appeared
+#@begin dish/column-copy0#@desc Columns first_appeared and last_appeared copied without changes
+#@param col-name:dish/first_appeared
+#@param col-name:dish/last_appeared
 #@in dish
-#@out first_appearedv1
-#@out last_appearedv1
-#@end core/column-copy0
-#@begin core/text-transform0#@desc Convert column id to number
-#@param col-name:id
+#@out dish/first_appearedv1
+#@out dish/last_appearedv1
+#@end dish/column-copy0
+#@begin dish/text-transform0#@desc Convert column id to number
+#@param col-name:dish/id
 #@in dish
-#@out idv1
-#@end core/text-transform0
-#@begin core/text-transform1#@desc Trim column name
-#@param col-name:name
+#@out dish/idv1
+#@end dish/text-transform0
+#@begin dish/text-transform1#@desc Trim column name
+#@param col-name:dish/name
 #@in dish
-#@out namev1
-#@end core/text-transform1
-#@begin core/text-transform2#@desc Collapse whitespace in column name
-#@param col-name:name
-#@in namev1
-#@out namev2
-#@end core/text-transform2
-#@begin core/column-addition0#@desc Create column name_case based on column name
-#@param col-name:name
-#@in namev2
-#@out name_casev1
-#@end core/column-addition0
-#@begin core/text-transform3#@desc Convert column name_case to uppercase
-#@param col-name:name_case
-#@in name_casev1
-#@out name_casev2
-#@end core/text-transform3
-#@begin core/column-addition1#@desc Create column name_cluster based on column name_case
-#@param col-name:name_case
-#@in name_casev2
-#@out name_clusterv1
-#@end core/column-addition1
-#@begin core/mass-edit0#@desc Cluster column name_cluster with ngram-fingerprint
-#@param col-name:name_cluster
-#@in name_clusterv1
-#@out name_clusterv2
-#@end core/mass-edit0
-#@begin core/column-removal0#@desc Remove column description
-#@param col-name:description
+#@out dish/namev1
+#@end dish/text-transform1
+#@begin dish/text-transform2#@desc Collapse whitespace in column name
+#@param col-name:dish/name
+#@in dish/namev1
+#@out dish/namev2
+#@end dish/text-transform2
+#@begin dish/column-addition0#@desc Create column name_case based on column name
+#@param col-name:dish/name
+#@in dish/namev2
+#@out dish/name_casev1
+#@end dish/column-addition0
+#@begin dish/text-transform3#@desc Convert column name_case to uppercase
+#@param col-name:dish/name_case
+#@in dish/name_casev1
+#@out dish/name_casev2
+#@end dish/text-transform3
+#@begin dish/column-addition1#@desc Create column name_cluster based on column name_case
+#@param col-name:dish/name_case
+#@in dish/name_casev2
+#@out dish/name_clusterv1
+#@end dish/column-addition1
+#@begin dish/mass-edit0#@desc Cluster column name_cluster with ngram-fingerprint
+#@param col-name:dish/name_cluster
+#@in dish/name_clusterv1
+#@out dish/name_clusterv2
+#@end dish/mass-edit0
+#@begin dish/column-removal0#@desc Remove column description
+#@param col-name:dish/description
 #@in dish
-#@end core/column-removal0
-#@begin core/text-transform4#@desc Convert column menus_appeared to number
-#@param col-name:menus_appeared
+#@end dish/column-removal0
+#@begin dish/text-transform4#@desc Convert column menus_appeared to number
+#@param col-name:dish/menus_appeared
 #@in dish
-#@out menus_appearedv1
-#@end core/text-transform4
-#@begin core/text-transform5#@desc Convert column times_appeared to number
-#@param col-name:times_appeared
+#@out dish/menus_appearedv1
+#@end dish/text-transform4
+#@begin dish/text-transform5#@desc Convert column times_appeared to number
+#@param col-name:dish/times_appeared
 #@in dish
-#@out times_appearedv1
-#@end core/text-transform5
-#@begin core/column-addition2#@desc Create column first_appeared_clean based on column first_appeared
-#@param col-name:first_appeared
-#@in first_appearedv1
-#@out first_appeared_cleanv1
-#@end core/column-addition2
-#@begin core/mass-edit1#@desc Set value 0 in column first_appeared_clean to blank
-#@param col-name:first_appeared_clean
-#@in first_appeared_cleanv1
-#@out first_appeared_cleanv2
-#@end core/mass-edit1
-#@begin core/mass-edit2#@desc Set value 1 in column first_appeared_clean to blank
-#@param col-name:first_appeared_clean
-#@in first_appeared_cleanv2
-#@out first_appeared_cleanv3
-#@end core/mass-edit2
-#@begin core/mass-edit3#@desc Set value 2928 in column first_appeared_clean to blank
-#@param col-name:first_appeared_clean
-#@in first_appeared_cleanv3
-#@out first_appeared_cleanv4
-#@end core/mass-edit3
-#@begin core/text-transform6#@desc Convert column first_appeared_clean to number
-#@param col-name:first_appeared_clean
-#@in first_appeared_cleanv4
-#@out first_appeared_cleanv5
-#@end core/text-transform6
-#@begin core/column-addition3#@desc Create column last_appeared_clean based on column last_appeared
-#@param col-name:last_appeared
-#@in last_appearedv1
-#@out last_appeared_cleanv1
-#@end core/column-addition3
-#@begin core/mass-edit4#@desc Set value 0 in column last_appeared_clean to blank
-#@param col-name:last_appeared_clean
-#@in last_appeared_cleanv1
-#@out last_appeared_cleanv2
-#@end core/mass-edit4
-#@begin core/mass-edit5#@desc Set value 1 in column last_appeared_clean to blank
-#@param col-name:last_appeared_clean
-#@in last_appeared_cleanv2
-#@out last_appeared_cleanv3
-#@end core/mass-edit5
-#@begin core/mass-edit6#@desc Set value 2928 in column last_appeared_clean to blank
-#@param col-name:last_appeared_clean
-#@in last_appeared_cleanv3
-#@out last_appeared_cleanv4
-#@end core/mass-edit6
-#@begin core/text-transform7#@desc Clonvert column last_appeared_clean to number
-#@param col-name:last_appeared_clean
-#@in last_appeared_cleanv4
-#@out last_appeared_cleanv5
-#@end core/text-transform7
-#@begin core/text-transform8#@desc Convert column lowest_price to number
-#@param col-name:lowest_price
+#@out dish/times_appearedv1
+#@end dish/text-transform5
+#@begin dish/column-addition2#@desc Create column first_appeared_clean based on column first_appeared
+#@param col-name:dish/first_appeared
+#@in dish/first_appearedv1
+#@out dish/first_appeared_cleanv1
+#@end dish/column-addition2
+#@begin dish/mass-edit1#@desc Set value 0 in column first_appeared_clean to blank
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv1
+#@out dish/first_appeared_cleanv2
+#@end dish/mass-edit1
+#@begin dish/mass-edit2#@desc Set value 1 in column first_appeared_clean to blank
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv2
+#@out dish/first_appeared_cleanv3
+#@end dish/mass-edit2
+#@begin dish/mass-edit3#@desc Set value 2928 in column first_appeared_clean to blank
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv3
+#@out dish/first_appeared_cleanv4
+#@end dish/mass-edit3
+#@begin dish/text-transform6#@desc Convert column first_appeared_clean to number
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv4
+#@out dish/first_appeared_cleanv5
+#@end dish/text-transform6
+#@begin dish/column-addition3#@desc Create column last_appeared_clean based on column last_appeared
+#@param col-name:dish/last_appeared
+#@in dish/last_appearedv1
+#@out dish/last_appeared_cleanv1
+#@end dish/column-addition3
+#@begin dish/mass-edit4#@desc Set value 0 in column last_appeared_clean to blank
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv1
+#@out dish/last_appeared_cleanv2
+#@end dish/mass-edit4
+#@begin dish/mass-edit5#@desc Set value 1 in column last_appeared_clean to blank
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv2
+#@out dish/last_appeared_cleanv3
+#@end dish/mass-edit5
+#@begin dish/mass-edit6#@desc Set value 2928 in column last_appeared_clean to blank
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv3
+#@out dish/last_appeared_cleanv4
+#@end dish/mass-edit6
+#@begin dish/text-transform7#@desc Clonvert column last_appeared_clean to number
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv4
+#@out dish/last_appeared_cleanv5
+#@end dish/text-transform7
+#@begin dish/text-transform8#@desc Convert column lowest_price to number
+#@param col-name:dish/lowest_price
 #@in dish
-#@out lowest_pricev1
-#@end core/text-transform8
-#@begin core/text-transform9#@desc Convert column highest_price to number
-#@param col-name:highest_price
+#@out dish/lowest_pricev1
+#@end dish/text-transform8
+#@begin dish/text-transform9#@desc Convert column highest_price to number
+#@param col-name:dish/highest_price
 #@in dish
-#@out highest_pricev1
-#@end core/text-transform9
-#@begin core/combine-columns#@desc Combine clean data
-#@in namev2
-#@in name_casev2
-#@in name_clusterv2
-#@in idv1
-#@in menus_appearedv1
-#@in times_appearedv1
-#@in first_appearedv1
-#@in first_appeared_cleanv5
-#@in last_appearedv1
-#@in last_appeared_cleanv5
-#@in lowest_pricev1
-#@in highest_pricev1
+#@out dish/highest_pricev1
+#@end dish/text-transform9
+#@begin dish/combine-columns#@desc Combine clean data
+#@in dish/namev2
+#@in dish/name_casev2
+#@in dish/name_clusterv2
+#@in dish/idv1
+#@in dish/menus_appearedv1
+#@in dish/times_appearedv1
+#@in dish/first_appearedv1
+#@in dish/first_appeared_cleanv5
+#@in dish/last_appearedv1
+#@in dish/last_appeared_cleanv5
+#@in dish/lowest_pricev1
+#@in dish/highest_pricev1
 #@out dish_clean
-#@end core/combine-columns
+#@end dish/combine-columns
 #@end Dish_OR

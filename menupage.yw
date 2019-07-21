@@ -1,0 +1,43 @@
+#@begin MenuPage_OR #@desc MenuPage OpenRefine Workflow
+#@in menupage
+#@out menupage_clean
+#@begin menupage/text-transform0#@desc Convert column id to number
+#@param col-name:menupage/id
+#@in menupage
+#@out menupage/idv1
+#@end menupage/text-transform0
+#@begin menupage/text-transform1#@desc Convert column menu_id to number
+#@param col-name:menupage/menu_id
+#@in menupage
+#@out menupage/menu_idv1
+#@end menupage/text-transform1
+#@begin menupage/text-transform2#@desc Convert column page_number to number
+#@param col-name:menupage/page_number
+#@in menupage
+#@out menupage/page_numberv1
+#@end menupage/text-transform2
+#@begin menupage/text-transform3#@desc Convert column image_id to number
+#@param col-name:menupage/image_id
+#@in menupage
+#@out menupage/image_idv1
+#@end menupage/text-transform3
+#@begin menupage/text-transform4#@desc Convert column full_height to number
+#@param col-name:menupage/full_height
+#@in menupage
+#@out menupage/full_heightv1
+#@end menupage/text-transform4
+#@begin menupage/text-transform5#@desc Convert column full_width to number
+#@param col-name:menupage/full_width
+#@in menupage
+#@out menupage/full_widthv1
+#@end menupage/text-transform5
+#@begin menupage/combine-columns#@desc Combine clean data
+#@in menupage/idv1
+#@in menupage/menu_idv1
+#@in menupage/page_numberv1
+#@in menupage/image_idv1
+#@in menupage/full_heightv1
+#@in menupage/full_widthv1
+#@out menupage_clean
+#@end menupage/combine-columns
+#@end MenuPage_OR
