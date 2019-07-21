@@ -61,7 +61,7 @@
 #@begin core/column-addition3#@desc Create column sponsor_uncertain based on column sponsor_grel using expression
 #@param expression:jython:if_value_has_?_return_1
 #@param col-name:sponsor_grel
-#@in sponsor_clusterv2
+#@in sponsor_grelv2
 #@out sponsor_uncertainv1
 #@end core/column-addition3
 #@begin core/text-transform7#@desc Trim column event
@@ -108,7 +108,7 @@
 #@begin core/column-addition7#@desc Create column event_uncertain based on column event_grel
 #@param expression:jython:if_value_has_?_return_1
 #@param col-name:event_grel
-#@in event_clusterv2
+#@in event_grelv2
 #@out event_uncertainv1
 #@end core/column-addition7
 #@begin core/text-transform11#@desc Trim column venue
@@ -350,7 +350,6 @@
 #@end core/text-transform27
 #@begin core/column-addition25#@desc Create column location_case based on column location
 #@param col-name:location
-#@param expression:jython:value.upper()
 #@in locationv2
 #@out location_casev1
 #@end core/column-addition25
@@ -392,7 +391,6 @@
 #@end core/text-transform29
 #@begin core/column-addition29#@desc Create column currency_case based on column currency
 #@param col-name:currency
-#@param expression:jython:value.upper()
 #@in currencyv2
 #@out currency_casev1
 #@end core/column-addition29
@@ -419,7 +417,7 @@
 #@in event_grelv2
 #@in event_clusterv2
 #@in event_uncertainv1
-#@in venue_v2
+#@in venuev2
 #@in venue_casev2
 #@in venue_countv1
 #@in venue_1v2
