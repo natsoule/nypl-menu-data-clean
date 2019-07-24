@@ -263,6 +263,17 @@
 #@out menu/physical_description_5v1
 #@out menu/physical_description_6v1
 #@end menu/column-split0
+#@begin menu/column-copy0#@desc Copy columns notes, call_number, currency_symbol, and status without change
+#@param col-name:menu/notes
+#@param col-name:menu/call_number
+#@param col-name:menu/currency_symbol
+#@param col-name:menu/status
+#@in menu
+#@out menu/notesv1
+#@out menu/call_numberv1
+#@out menu/currency_symbolv1
+#@out menu/statusv1
+#@end menu/column-copy0
 #@begin menu/text-transform20#@desc Trim column occasion
 #@param col-name:menu/occasion
 #@in menu
@@ -440,6 +451,10 @@
 #@in menu/physical_description_4v1
 #@in menu/physical_description_5v1
 #@in menu/physical_description_6v1
+#@in menu/notesv1
+#@in menu/call_numberv1
+#@in menu/currency_symbolv1
+#@in menu/statusv1
 #@in menu/occasionv2
 #@in menu/occasion_casev2
 #@in menu/occasion_grelv1
