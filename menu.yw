@@ -348,7 +348,7 @@
 #@in menu/locationv1
 #@out menu/locationv2
 #@end menu/text-transform27
-#@begin menu/column-addition25#@desc Create column location_case based on column location
+#@begin menu/column-addition25#@desc Create column location_case based on column location and convert to uppercase
 #@param col-name:menu/location
 #@in menu/locationv2
 #@out menu/location_casev1
@@ -389,7 +389,7 @@
 #@in menu/currencyv1
 #@out menu/currencyv2
 #@end menu/text-transform29
-#@begin menu/column-addition29#@desc Create column currency_case based on column currency
+#@begin menu/column-addition29#@desc Create column currency_case based on column currency and convert to uppercase
 #@param col-name:menu/currency
 #@in menu/currencyv2
 #@out menu/currency_casev1
