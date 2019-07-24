@@ -1,0 +1,729 @@
+#@begin Workflow_OR
+#@in dish
+#@in menu
+#@in menuitem
+#@in menupage
+#@out dish_clean
+#@out menu_clean
+#@out menuitem_clean
+#@out menupage_clean
+#@begin menu/text-transform0#@desc Convert column id to number
+#@param col-name:menu/id
+#@in menu
+#@out menu/idv1
+#@end menu/text-transform0
+#@begin menu/text-transform1#@desc Trim column name
+#@param col-name:menu/name
+#@in menu
+#@out menu/namev1
+#@end menu/text-transform1
+#@begin menu/text-transform2#@desc Collapse whitespace in column name
+#@param col-name:menu/name
+#@in menu/namev1
+#@out menu/namev2
+#@end menu/text-transform2
+#@begin menu/text-transform3#@desc Trim column sponsor
+#@param col-name:menu/sponsor
+#@in menu
+#@out menu/sponsorv1
+#@end menu/text-transform3
+#@begin menu/text-transform4#@desc Collapse whitespace in column sponsor
+#@param col-name:menu/sponsor
+#@in menu/sponsorv1
+#@out menu/sponsorv2
+#@end menu/text-transform4
+#@begin menu/column-addition0#@desc Create column sponsor_case based on column sponsor
+#@param col-name:menu/sponsor
+#@in menu/sponsorv2
+#@out menu/sponsor_casev1
+#@end menu/column-addition0
+#@begin menu/text-transform5#@desc Convert sponsor_case to uppercase
+#@param col-name:menu/sponsor_case
+#@in menu/sponsor_casev1
+#@out menu/sponsor_casev2
+#@end menu/text-transform5
+#@begin menu/column-addition1#@desc Create column sponsor_grel based on column sponsor_case
+#@param col-name:menu/sponsor_case
+#@in menu/sponsor_casev2
+#@out menu/sponsor_grelv1
+#@end menu/column-addition1
+#@begin menu/text-transform6#@desc Strip outer parentheses and brackets in sponsor_grel
+#@param col-name:menu/sponsor_grel
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in menu/sponsor_grelv1
+#@out menu/sponsor_grelv2
+#@end menu/text-transform6
+#@begin menu/column-addition2#@desc Create column sponsor_cluster based on column sponsor_grel
+#@param col-name:menu/sponsor_grel
+#@in menu/sponsor_grelv2
+#@out menu/sponsor_clusterv1
+#@end menu/column-addition2
+#@begin menu/mass-edit0#@desc Cluster column sponsor_cluster with ngram-fingerprint. Did not merge values ? and L,
+#@param col-name:menu/sponsor_cluster
+#@in menu/sponsor_clusterv1
+#@out menu/sponsor_clusterv2
+#@end menu/mass-edit0
+#@begin menu/column-addition3#@desc Create column sponsor_uncertain based on column sponsor_grel using expression
+#@param expression:jython:if_value_has_?_return_1
+#@param col-name:menu/sponsor_grel
+#@in menu/sponsor_grelv2
+#@out menu/sponsor_uncertainv1
+#@end menu/column-addition3
+#@begin menu/text-transform7#@desc Trim column event
+#@param col-name:menu/event
+#@in menu
+#@out menu/eventv1
+#@end menu/text-transform7
+#@begin menu/text-transform8#@desc Collapse whitespace in column event
+#@param col-name:menu/event
+#@in menu/eventv1
+#@out menu/eventv2
+#@end menu/text-transform8
+#@begin menu/column-addition4#@desc Create column event_case based on column event
+#@param col-name:menu/event
+#@in menu/eventv2
+#@out menu/event_casev1
+#@end menu/column-addition4
+#@begin menu/text-transform9#@desc Convert column event_case to uppercase
+#@param col-name:menu/event_case
+#@in menu/event_casev1
+#@out menu/event_casev2
+#@end menu/text-transform9
+#@begin menu/column-addition5#@desc Create column event_grel based on column event_case
+#@param col-name:menu/event_case
+#@in menu/event_casev2
+#@out menu/event_grelv1
+#@end menu/column-addition5
+#@begin menu/text-transform10#@desc Strip outer parentheses and brackets in event_grel
+#@param col-name:menu/event_grel
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in menu/event_grelv1
+#@out menu/event_grelv2
+#@end menu/text-transform10
+#@begin menu/column-addition6#@desc Create column event_cluster based on column event_grel
+#@param col-name:menu/event_grel
+#@in menu/event_grelv2
+#@out menu/event_clusterv1
+#@end menu/column-addition6
+#@begin menu/mass-edit1#@desc Cluster column event_cluster with ngram-fingerprint
+#@param col-name:menu/event_cluster
+#@in menu/event_clusterv1
+#@out menu/event_clusterv2
+#@end menu/mass-edit1
+#@begin menu/column-addition7#@desc Create column event_uncertain based on column event_grel
+#@param expression:jython:if_value_has_?_return_1
+#@param col-name:menu/event_grel
+#@in menu/event_grelv2
+#@out menu/event_uncertainv1
+#@end menu/column-addition7
+#@begin menu/text-transform11#@desc Trim column venue
+#@param col-name:menu/venue
+#@in menu
+#@out menu/venuev1
+#@end menu/text-transform11
+#@begin menu/text-transform12#@desc Collapse whitespace in column venue
+#@param col-name:menu/venue
+#@in menu/venuev1
+#@out menu/venuev2
+#@end menu/text-transform12
+#@begin menu/column-addition8#@desc Create column venue_case based on column venue
+#@param col-name:menu/venue
+#@in menu/venuev2
+#@out menu/venue_casev1
+#@end menu/column-addition8
+#@begin menu/text-transform13#@desc Convert column venue_case to uppercase
+#@param col-name:menu/venue_case
+#@in menu/venue_casev1
+#@out menu/venue_casev2
+#@end menu/text-transform13
+#@begin menu/column-addition9#@desc Create column venue_count based on column venue_case
+#@param col-name:menu/venue_case
+#@param expression:jython:len(value.replace(';',',').split(','))
+#@in menu/venue_casev2
+#@out menu/venue_countv1
+#@end menu/column-addition9
+#@begin menu/column-addition10#@desc Create column venue_5 based on column venue_case
+#@param col-name:menu/venue_case
+#@param expression:jython:value.replace(';',',').split(',')[4]
+#@in menu/venue_casev2
+#@out menu/venue_5v1
+#@end menu/column-addition10
+#@begin menu/column-addition11#@desc Create column venue_4 based on column venue_case
+#@param expression:jython:value.replace(';',',').split(',')[3]
+#@param col-name:menu/venue_case
+#@in menu/venue_casev2
+#@out menu/venue_4v1
+#@end menu/column-addition11
+#@begin menu/column-addition12#@desc Create column venue_3 based on column venue_case
+#@param expression:jython:value.replace(';',',').split(',')[2]
+#@param col-name:menu/venue_case
+#@in menu/venue_casev2
+#@out menu/venue_3v1
+#@end menu/column-addition12
+#@begin menu/column-addition13#@desc Create column venue_2 based on column venue_case
+#@param expression:jython:value.replace(';',',').split(',')[1]
+#@param col-name:menu/venue_case
+#@in menu/venue_casev2
+#@out menu/venue_2v1
+#@end menu/column-addition13
+#@begin menu/column-addition14#@desc Create column venue_1 based on column venue_case
+#@param expression:jython:value.replace(';',',').split(',')[0]
+#@param col-name:menu/venue_case
+#@in menu/venue_casev2
+#@out menu/venue_1v1
+#@end menu/column-addition14
+#@begin menu/mass-edit2#@desc Cluster column venue_1 with fingerprint
+#@param col-name:menu/venue_1
+#@in menu/venue_1v1
+#@out menu/venue_1v2
+#@end menu/mass-edit2
+#@begin menu/mass-edit3#@desc Cluster column venue_2 with fingerprint
+#@param col-name:menu/venue_2
+#@in menu/venue_2v1
+#@out menu/venue_2v2
+#@end menu/mass-edit3
+#@begin menu/column-addition15#@desc Create column venue_uncertain based on column venue_case
+#@param expression:jython:if_value_has_?_return_1
+#@param col-name:menu/venue_case
+#@in menu/venue_casev2
+#@out menu/venue_uncertainv1
+#@end menu/column-addition15
+#@begin menu/text-transform14#@desc Trim column place
+#@param col-name:menu/place
+#@in menu
+#@out menu/placev1
+#@end menu/text-transform14
+#@begin menu/text-transform15#@desc Collapse whitespace in column place
+#@param col-name:menu/place
+#@in menu/placev1
+#@out menu/placev2
+#@end menu/text-transform15
+#@begin menu/column-addition16#@desc Create column place_case based on column place
+#@param col-name:menu/place
+#@in menu/placev2
+#@out menu/place_casev1
+#@end menu/column-addition16
+#@begin menu/text-transform16#@desc Convert column place_case to uppercase
+#@param col-name:menu/place_case
+#@in menu/place_casev1
+#@out menu/place_casev2
+#@end menu/text-transform16
+#@begin menu/column-addition17#@desc Create column place_cluster based on column place_case
+#@param col-name:menu/place_case
+#@in menu/place_casev2
+#@out menu/place_clusterv1
+#@end menu/column-addition17
+#@begin menu/mass-edit4#@desc Cluster place_cluster with ngram-fingerprint
+#@param col-name:menu/place_cluster
+#@in menu/place_clusterv1
+#@out menu/place_clusterv2
+#@end menu/mass-edit4
+#@begin menu/column-addition18#@desc Create column place_uncertain based on column place_case 
+#@param expression:jython:if_value_has_?_return_1
+#@param col-name:menu/place_case
+#@in menu/place_casev2
+#@out menu/place_uncertainv1
+#@end menu/column-addition18
+#@begin menu/column-addition19#@desc Create column place_grel based on column place_cluster
+#@param col-name:menu/place_cluster
+#@param expression:grel:value.replace(';','')
+#@in menu/place_clusterv2
+#@out menu/place_grelv1
+#@end menu/column-addition19
+#@begin menu/text-transform17#@desc Trim column physical_description
+#@param col-name:menu/physical_description
+#@in menu
+#@out menu/physical_descriptionv1
+#@end menu/text-transform17
+#@begin menu/text-transform18#@desc Collapse whitespace in column physical_description
+#@param col-name:menu/physical_description
+#@in menu/physical_descriptionv1
+#@out menu/physical_descriptionv2
+#@end menu/text-transform18
+#@begin menu/column-addition20#@desc Create column physical_description_case based on column physical_description
+#@param col-name:menu/physical_description
+#@in menu/physical_descriptionv2
+#@out menu/physical_description_casev1
+#@end menu/column-addition20
+#@begin menu/text-transform19#@desc Convert column physical_description_case to uppercase
+#@param col-name:menu/physical_description_case
+#@in menu/physical_description_casev1
+#@out menu/physical_description_casev2
+#@end menu/text-transform19
+#@begin menu/column-addition21#@desc Create column physical_description_count based on column physical_description_case
+#@param col-name:menu/physical_description_case
+#@param expression:jython:return len(value.split(';'))
+#@in menu/physical_description_casev2
+#@out menu/physical_description_countv1
+#@end menu/column-addition21
+#@begin menu/column-split0#@desc Split column physical_description_case by separator
+#@param col-name:menu/physical_description_case
+#@param separator:";"
+#@param removeOriginalColumn:False
+#@in menu/physical_description_casev2
+#@out menu/physical_description_1v1
+#@out menu/physical_description_2v1
+#@out menu/physical_description_3v1
+#@out menu/physical_description_4v1
+#@out menu/physical_description_5v1
+#@out menu/physical_description_6v1
+#@end menu/column-split0
+#@begin menu/column-copy0#@desc Copy columns notes, call_number, currency_symbol, and status without change
+#@param col-name:menu/notes
+#@param col-name:menu/call_number
+#@param col-name:menu/currency_symbol
+#@param col-name:menu/status
+#@in menu
+#@out menu/notesv1
+#@out menu/call_numberv1
+#@out menu/currency_symbolv1
+#@out menu/statusv1
+#@end menu/column-copy0
+#@begin menu/text-transform20#@desc Trim column occasion
+#@param col-name:menu/occasion
+#@in menu
+#@out menu/occasionv1
+#@end menu/text-transform20
+#@begin menu/text-transform21#@desc Collapse whitespace in column occasion
+#@param col-name:menu/occasion
+#@in menu/occasionv1
+#@out menu/occasionv2
+#@end menu/text-transform21
+#@begin menu/column-addition22#@desc Create column occasion_case based on column occasion
+#@param col-name:menu/occasion
+#@in menu/occasionv2
+#@out menu/occasion_casev1
+#@end menu/column-addition22
+#@begin menu/text-transform22#@desc Convert column occasion_case to uppercase
+#@param col-name:menu/occasion_case
+#@in menu/occasion_casev1
+#@out menu/occasion_casev2
+#@end menu/text-transform22
+#@begin menu/column-addition23#@desc Strip outer parentheses and brackets from occasion_case and create column occasion_grel
+#@param col-name:menu/occasion_case
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in menu/occasion_casev2
+#@out menu/occasion_grelv1
+#@end menu/column-addition23
+#@begin menu/column-split1#@desc Split column occasion_grel by separator
+#@param col-name:menu/occasion_grel
+#@param separator:";"
+#@param removeOriginalColumn:False
+#@in menu/occasion_grelv1
+#@out menu/occasion_1v1
+#@out menu/occasion_2v1
+#@end menu/column-split1
+#@begin menu/text-transform23#@desc Strip outer parentheses and brackets in occasion_1
+#@param col-name:menu/occasion_1
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in menu/occasion_1v1
+#@out menu/occasion_1v2
+#@end menu/text-transform23
+#@begin menu/text-transform24#@desc Strip outer parentheses and brackets in occasion_2
+#@param col-name:menu/occasion_2
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in menu/occasion_2v1
+#@out menu/occasion_2v2
+#@end menu/text-transform24
+#@begin menu/mass-edit5#@desc Cluster column occasion_1
+#@param col-name:menu/occasion_1
+#@in menu/occasion_1v2
+#@out menu/occasion_1v3
+#@end menu/mass-edit5
+#@begin menu/mass-edit6#@desc Cluster column occasion_2
+#@param col-name:menu/occasion_2
+#@in menu/occasion_2v2
+#@out menu/occasion_2v3
+#@end menu/mass-edit6
+#@begin menu/column-addition24#@desc Create column occassion_uncertain based on column occasion_grel 
+#@param expression:jython:if_value_has_?_return_1
+#@param col-name:menu/occasion_grel
+#@in menu/occasion_grelv1
+#@out menu/occasion_uncertainv1
+#@end menu/column-addition24
+#@begin menu/column-removal0#@desc Remove column keywords
+#@param col-name:menu/keywords
+#@in menu
+#@end menu/column-removal0
+#@begin menu/column-removal1#@desc Remove column language
+#@param col-name:menu/language
+#@in menu
+#@end menu/column-removal1
+#@begin menu/text-transform25#@desc Convert column date to date
+#@param col-name:menu/date
+#@in menu
+#@out menu/datev1
+#@end menu/text-transform25
+#@begin menu/text-transform26#@desc Trim location
+#@param col-name:menu/location
+#@in menu
+#@out menu/locationv1
+#@end menu/text-transform26
+#@begin menu/text-transform27#@desc Collapse whitespace in column location
+#@param col-name:menu/location
+#@in menu/locationv1
+#@out menu/locationv2
+#@end menu/text-transform27
+#@begin menu/column-addition25#@desc Create column location_case based on column location and convert to uppercase
+#@param col-name:menu/location
+#@in menu/locationv2
+#@out menu/location_casev1
+#@end menu/column-addition25
+#@begin menu/column-addition26#@desc Strip outer parentheses and brackets from column location_case and create location_grel
+#@param col-name:menu/location_case
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in menu/location_casev1
+#@out menu/location_grelv1
+#@end menu/column-addition26
+#@begin menu/column-addition27#@desc Create column location_cluster based on column location_grel
+#@param col-name:menu/location_grel
+#@in menu/location_grelv1
+#@out menu/location_clusterv1
+#@end menu/column-addition27
+#@begin menu/mass-edit7#@desc Cluster column location_cluster with ngram-fingerprint
+#@param col-name:menu/location_cluster
+#@in menu/location_clusterv1
+#@out menu/location_clusterv2
+#@end menu/mass-edit7
+#@begin menu/column-addition28#@desc Create column location_uncertain based on column location_grel
+#@param col-name:menu/location_grel
+#@param expression:jython:if_value_has_?_return_1
+#@in menu/location_grelv1
+#@out menu/location_uncertainv1
+#@end menu/column-addition28
+#@begin menu/column-removal2#@desc Remove column location_type
+#@param col-name:menu/location_type
+#@in menu
+#@end menu/column-removal2
+#@begin menu/text-transform28#@desc Trim column currency
+#@param col-name:menu/currency
+#@in menu
+#@out menu/currencyv1
+#@end menu/text-transform28
+#@begin menu/text-transform29#@desc Collapse whitespace in column currency
+#@param col-name:menu/currency
+#@in menu/currencyv1
+#@out menu/currencyv2
+#@end menu/text-transform29
+#@begin menu/column-addition29#@desc Create column currency_case based on column currency and convert to uppercase
+#@param col-name:menu/currency
+#@in menu/currencyv2
+#@out menu/currency_casev1
+#@end menu/column-addition29
+#@begin menu/text-transform30#@desc Convert column page_count to number
+#@param col-name:menu/page_count
+#@in menu
+#@out menu/page_countv1
+#@end menu/text-transform30
+#@begin menu/text-transform31#@desc Convert column dish_count to number
+#@param col-name:menu/dish_count
+#@in menu
+#@out menu/dish_countv1
+#@end menu/text-transform31
+#@begin menu/combine-columns@desc Combine clean data
+#@in menu/idv1
+#@in menu/namev2
+#@in menu/sponsorv2
+#@in menu/sponsor_casev2
+#@in menu/sponsor_grelv2
+#@in menu/sponsor_clusterv2
+#@in menu/sponsor_uncertainv1
+#@in menu/eventv2
+#@in menu/event_casev2
+#@in menu/event_grelv2
+#@in menu/event_clusterv2
+#@in menu/event_uncertainv1
+#@in menu/venuev2
+#@in menu/venue_casev2
+#@in menu/venue_countv1
+#@in menu/venue_1v2
+#@in menu/venue_2v2
+#@in menu/venue_3v1
+#@in menu/venue_4v1
+#@in menu/venue_5v1
+#@in menu/venue_uncertainv1
+#@in menu/placev2
+#@in menu/place_casev2
+#@in menu/place_clusterv2
+#@in menu/place_grelv1
+#@in menu/place_uncertainv1
+#@in menu/physical_descriptionv2
+#@in menu/physical_description_casev2
+#@in menu/physical_description_countv1
+#@in menu/physical_description_1v1
+#@in menu/physical_description_2v1
+#@in menu/physical_description_3v1
+#@in menu/physical_description_4v1
+#@in menu/physical_description_5v1
+#@in menu/physical_description_6v1
+#@in menu/notesv1
+#@in menu/call_numberv1
+#@in menu/currency_symbolv1
+#@in menu/statusv1
+#@in menu/occasionv2
+#@in menu/occasion_casev2
+#@in menu/occasion_grelv1
+#@in menu/occasion_1v3
+#@in menu/occasion_2v3
+#@in menu/occasion_uncertainv1
+#@in menu/datev1
+#@in menu/locationv2
+#@in menu/location_casev1
+#@in menu/location_grelv1
+#@in menu/location_clusterv2
+#@in menu/location_uncertainv1
+#@in menu/currencyv2
+#@in menu/currency_casev1
+#@in menu/page_countv1
+#@in menu/dish_countv1
+#@out menu_clean
+#@end menu/combine-columns
+#@begin menuitem/text-transform0#@desc Convert column id to number
+#@param col-name:menuitem/id
+#@in menuitem
+#@out menuitem/idv1
+#@end menuitem/text-transform0
+#@begin menuitem/text-transform1#@desc Convert column menu_page_id to number
+#@param col-name:menuitem/menu_page_id
+#@in menuitem
+#@out menuitem/menu_page_idv1
+#@end menuitem/text-transform1
+#@begin menuitem/text-transform2#@desc Convert column price to number
+#@param col-name:menuitem/price
+#@in menuitem
+#@out menuitem/pricev1
+#@end menuitem/text-transform2
+#@begin menuitem/text-transform3#@desc Convert high_price to number
+#@param col-name:menuitem/high_price
+#@in menuitem
+#@out menuitem/high_pricev1
+#@end menuitem/text-transform3
+#@begin menuitem/text-transform4#@desc Convert column dish_id to number
+#@param col-name:menuitem/dish_id
+#@in menuitem
+#@out menuitem/dish_idv1
+#@end menuitem/text-transform4
+#@begin menuitem/column-addition0#@desc Create column created_at_utc based on column created_at
+#@param col-name:menuitem/created_at
+#@param expression:jython:value.replace('UTC','').strip()
+#@in menuitem/created_atv1
+#@out menuitem/created_at_utcv1
+#@end menuitem/column-addition0
+#@begin menuitem/column-copy0#@desc Columns created_at and updated_at copied without changes
+#@param col-name:menuitem/created_at
+#@param col-name:menuitem/updated_at
+#@in menuitem
+#@out menuitem/created_atv1
+#@out menuitem/updated_atv1
+#@end menuitem/column-copy
+#@begin menuitem/text-transform5#@desc Convert column created_at_utc to date
+#@param col-name:menuitem/created_at_utc
+#@in menuitem/created_at_utcv1
+#@out menuitem/created_at_utcv2
+#@end menuitem/text-transform5
+#@begin menuitem/column-addition1#@desc Create column updated_at_utc based on column updated_at
+#@param col-name:menuitem/updated_at
+#@param expression:jython:value.replace('UTC','').strip()
+#@in menuitem/updated_atv1
+#@out menuitem/updated_at_utcv1
+#@end menuitem/column-addition1
+#@begin menuitem/text-transform6#@desc Convert column updated_at_utc to date
+#@param col-name:menuitem/updated_at_utc
+#@in menuitem/updated_at_utcv1
+#@out menuitem/updated_at_utcv2
+#@end menuitem/text-transform6
+#@begin menuitem/text-transform7#@desc Convert column xpos to number
+#@param col-name:menuitem/xpos
+#@in menuitem
+#@out menuitem/xposv1
+#@end menuitem/text-transform7
+#@begin menuitem/text-transform8#@desc Convert column ypos to number
+#@param col-name:menuitem/ypos
+#@in menuitem
+#@out menuitem/yposv1
+#@end menuitem/text-transform8
+#@begin menuitem/combine-columns@desc Combine clean data
+#@in menuitem/idv1
+#@in menuitem/menu_page_idv1
+#@in menuitem/pricev1
+#@in menuitem/high_pricev1
+#@in menuitem/dish_idv1
+#@in menuitem/xposv1
+#@in menuitem/yposv1
+#@in menuitem/created_atv1
+#@in menuitem/created_at_utcv2
+#@in menuitem/updated_atv1
+#@in menuitem/updated_at_utcv2
+#@out menuitem_clean
+#@end menuitem/combine-columns
+#@begin menupage/text-transform0#@desc Convert column id to number
+#@param col-name:menupage/id
+#@in menupage
+#@out menupage/idv1
+#@end menupage/text-transform0
+#@begin menupage/text-transform1#@desc Convert column menu_id to number
+#@param col-name:menupage/menu_id
+#@in menupage
+#@out menupage/menu_idv1
+#@end menupage/text-transform1
+#@begin menupage/text-transform2#@desc Convert column page_number to number
+#@param col-name:menupage/page_number
+#@in menupage
+#@out menupage/page_numberv1
+#@end menupage/text-transform2
+#@begin menupage/text-transform3#@desc Convert column image_id to number
+#@param col-name:menupage/image_id
+#@in menupage
+#@out menupage/image_idv1
+#@end menupage/text-transform3
+#@begin menupage/text-transform4#@desc Convert column full_height to number
+#@param col-name:menupage/full_height
+#@in menupage
+#@out menupage/full_heightv1
+#@end menupage/text-transform4
+#@begin menupage/text-transform5#@desc Convert column full_width to number
+#@param col-name:menupage/full_width
+#@in menupage
+#@out menupage/full_widthv1
+#@end menupage/text-transform5
+#@begin menupage/combine-columns#@desc Combine clean data
+#@in menupage/idv1
+#@in menupage/menu_idv1
+#@in menupage/page_numberv1
+#@in menupage/image_idv1
+#@in menupage/full_heightv1
+#@in menupage/full_widthv1
+#@out menupage_clean
+#@end menupage/combine-columns
+#@begin dish/column-copy0#@desc Columns first_appeared and last_appeared copied without changes
+#@param col-name:dish/first_appeared
+#@param col-name:dish/last_appeared
+#@in dish
+#@out dish/first_appearedv1
+#@out dish/last_appearedv1
+#@end dish/column-copy0
+#@begin dish/text-transform0#@desc Convert column id to number
+#@param col-name:dish/id
+#@in dish
+#@out dish/idv1
+#@end dish/text-transform0
+#@begin dish/text-transform1#@desc Trim column name
+#@param col-name:dish/name
+#@in dish
+#@out dish/namev1
+#@end dish/text-transform1
+#@begin dish/text-transform2#@desc Collapse whitespace in column name
+#@param col-name:dish/name
+#@in dish/namev1
+#@out dish/namev2
+#@end dish/text-transform2
+#@begin dish/column-addition0#@desc Create column name_case based on column name
+#@param col-name:dish/name
+#@in dish/namev2
+#@out dish/name_casev1
+#@end dish/column-addition0
+#@begin dish/text-transform3#@desc Convert column name_case to uppercase
+#@param col-name:dish/name_case
+#@in dish/name_casev1
+#@out dish/name_casev2
+#@end dish/text-transform3
+#@begin dish/column-addition1#@desc Create column name_cluster based on column name_case
+#@param col-name:dish/name_case
+#@in dish/name_casev2
+#@out dish/name_clusterv1
+#@end dish/column-addition1
+#@begin dish/mass-edit0#@desc Cluster column name_cluster with ngram-fingerprint
+#@param col-name:dish/name_cluster
+#@in dish/name_clusterv1
+#@out dish/name_clusterv2
+#@end dish/mass-edit0
+#@begin dish/column-removal0#@desc Remove column description
+#@param col-name:dish/description
+#@in dish
+#@end dish/column-removal0
+#@begin dish/text-transform4#@desc Convert column menus_appeared to number
+#@param col-name:dish/menus_appeared
+#@in dish
+#@out dish/menus_appearedv1
+#@end dish/text-transform4
+#@begin dish/text-transform5#@desc Convert column times_appeared to number
+#@param col-name:dish/times_appeared
+#@in dish
+#@out dish/times_appearedv1
+#@end dish/text-transform5
+#@begin dish/column-addition2#@desc Create column first_appeared_clean based on column first_appeared
+#@param col-name:dish/first_appeared
+#@in dish/first_appearedv1
+#@out dish/first_appeared_cleanv1
+#@end dish/column-addition2
+#@begin dish/mass-edit1#@desc Set value 0 in column first_appeared_clean to blank
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv1
+#@out dish/first_appeared_cleanv2
+#@end dish/mass-edit1
+#@begin dish/mass-edit2#@desc Set value 1 in column first_appeared_clean to blank
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv2
+#@out dish/first_appeared_cleanv3
+#@end dish/mass-edit2
+#@begin dish/mass-edit3#@desc Set value 2928 in column first_appeared_clean to blank
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv3
+#@out dish/first_appeared_cleanv4
+#@end dish/mass-edit3
+#@begin dish/text-transform6#@desc Convert column first_appeared_clean to number
+#@param col-name:dish/first_appeared_clean
+#@in dish/first_appeared_cleanv4
+#@out dish/first_appeared_cleanv5
+#@end dish/text-transform6
+#@begin dish/column-addition3#@desc Create column last_appeared_clean based on column last_appeared
+#@param col-name:dish/last_appeared
+#@in dish/last_appearedv1
+#@out dish/last_appeared_cleanv1
+#@end dish/column-addition3
+#@begin dish/mass-edit4#@desc Set value 0 in column last_appeared_clean to blank
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv1
+#@out dish/last_appeared_cleanv2
+#@end dish/mass-edit4
+#@begin dish/mass-edit5#@desc Set value 1 in column last_appeared_clean to blank
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv2
+#@out dish/last_appeared_cleanv3
+#@end dish/mass-edit5
+#@begin dish/mass-edit6#@desc Set value 2928 in column last_appeared_clean to blank
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv3
+#@out dish/last_appeared_cleanv4
+#@end dish/mass-edit6
+#@begin dish/text-transform7#@desc Clonvert column last_appeared_clean to number
+#@param col-name:dish/last_appeared_clean
+#@in dish/last_appeared_cleanv4
+#@out dish/last_appeared_cleanv5
+#@end dish/text-transform7
+#@begin dish/text-transform8#@desc Convert column lowest_price to number
+#@param col-name:dish/lowest_price
+#@in dish
+#@out dish/lowest_pricev1
+#@end dish/text-transform8
+#@begin dish/text-transform9#@desc Convert column highest_price to number
+#@param col-name:dish/highest_price
+#@in dish
+#@out dish/highest_pricev1
+#@end dish/text-transform9
+#@begin dish/combine-columns#@desc Combine clean data
+#@in dish/namev2
+#@in dish/name_casev2
+#@in dish/name_clusterv2
+#@in dish/idv1
+#@in dish/menus_appearedv1
+#@in dish/times_appearedv1
+#@in dish/first_appearedv1
+#@in dish/first_appeared_cleanv5
+#@in dish/last_appearedv1
+#@in dish/last_appeared_cleanv5
+#@in dish/lowest_pricev1
+#@in dish/highest_pricev1
+#@out dish_clean
+#@end dish/combine-columns
+#@end Workflow_OR
