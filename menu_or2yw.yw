@@ -1,0 +1,655 @@
+#@begin Linear_OR #@desc Linear OpenRefine Workflow
+#@param newColumnName:physical_description_2
+#@param newColumnName:value_1
+#@param newColumnName:occasion_2
+#@param col-name:occasion_2
+#@param newColumnName:occasion_1
+#@param newColumnName:location_case
+#@param expression:value.replace(/\s+/,'_')
+#@param col-name:location_grel
+#@param newColumnName:sponsor_grel
+#@param newColumnName:physical_description_count
+#@param col-name:occasion_case
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@param oldColumnName:vlaue_4
+#@param newColumnName:venue_count
+#@param newColumnName:event_cluster
+#@param col-name:id
+#@param newColumnName:physical_description_case
+#@param col-name:place
+#@param col-name:sponsor
+#@param expression:value.toNumber()
+#@param newColumnName:physical_description_4
+#@param col-name:physical_description_case
+#@param col-name:physical_description
+#@param col-name:occasion
+#@param newColumnName:location_grel
+#@param newColumnName:occasion_case
+#@param col-name:occasion_1
+#@param expression:value.toDate()
+#@param col-name:event_cluster
+#@param newColumnName:sponsor_uncertain
+#@param col-name:keywords
+#@param col-name:event
+#@param newColumnName:venue_2
+#@param newColumnName:venue_4
+#@param newColumnName:event_grel
+#@param newColumnName:venue_3
+#@param newColumnName:event_uncertain
+#@param col-name:sponsor_case
+#@param newColumnName:value_5
+#@param newColumnName:venue_1
+#@param oldColumnName:value_2
+#@param col-name:place_cluster
+#@param oldColumnName:value_3
+#@param newColumnName:occassion_uncertain
+#@param col-name:event_grel
+#@param col-name:date
+#@param col-name:location
+#@param newColumnName:currency_case
+#@param oldColumnName:occasion_grel_1
+#@param col-name:place_case
+#@param newColumnName:venue_case
+#@param newColumnName:venue_uncertain
+#@param expression:value.trim()
+#@param col-name:event_case
+#@param newColumnName:physical_description_5
+#@param col-name:page_count
+#@param col-name:location_case
+#@param newColumnName:value_3
+#@param newColumnName:location_cluster
+#@param oldColumnName:physical_description_case_3
+#@param oldColumnName:value_1
+#@param col-name:sponsor_grel
+#@param oldColumnName:physical_description_case_2
+#@param col-name:dish_count
+#@param newColumnName:place_case
+#@param col-name:occasion_grel
+#@param col-name:sponsor_cluster
+#@param newColumnName:physical_description_3
+#@param col-name:value_2
+#@param separator:";"
+#@param oldColumnName:physical_description_case_4
+#@param col-name:location_cluster
+#@param col-name:venue
+#@param newColumnName:value_2
+#@param newColumnName:sponsor_cluster
+#@param newColumnName:vlaue_4
+#@param col-name:location_type
+#@param removeOriginalColumn:False
+#@param newColumnName:venue_5
+#@param col-name:value_1
+#@param col-name:name
+#@param newColumnName:occasion_grel
+#@param newColumnName:location_uncertain
+#@param col-name:currency
+#@param newColumnName:place_uncertain
+#@param newColumnName:place_cluster
+#@param newColumnName:physical_description_6
+#@param oldColumnName:physical_description_case_6
+#@param newColumnName:event_case
+#@param oldColumnName:occasion_grel_2
+#@param newColumnName:physical_description_1
+#@param newColumnName:sponsor_case
+#@param newColumnName:place_grel
+#@param col-name:venue_case
+#@param oldColumnName:physical_description_case_5
+#@param expression:value.toUppercase()
+#@param col-name:language
+#@param oldColumnName:physical_description_case_1
+#@param oldColumnName:value_5
+#@in table0
+#@out table88
+#@begin core/text-transform0#@desc Text transform on cells in column id using expression value.toNumber()
+#@param col-name:id
+#@param expression:value.toNumber()
+#@in table0
+#@out table1
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Text transform on cells in column name using expression value.trim()
+#@param col-name:name
+#@param expression:value.trim()
+#@in table1
+#@out table2
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column name using expression value.replace(/\s+/,' ')
+#@param col-name:name
+#@param expression:value.replace(/\s+/,'_')
+#@in table2
+#@out table3
+#@end core/text-transform2
+#@begin core/text-transform3#@desc Text transform on cells in column sponsor using expression value.trim()
+#@param col-name:sponsor
+#@param expression:value.trim()
+#@in table3
+#@out table4
+#@end core/text-transform3
+#@begin core/text-transform4#@desc Text transform on cells in column sponsor using expression value.replace(/\s+/,' ')
+#@param col-name:sponsor
+#@param expression:value.replace(/\s+/,'_')
+#@in table4
+#@out table5
+#@end core/text-transform4
+#@begin core/column-addition0#@desc Create column sponsor_case at index 3 based on column sponsor using expression jython:return value
+#@param col-name:sponsor
+#@param newColumnName:"sponsor_case"
+#@in table5
+#@out table6
+#@end core/column-addition0
+#@begin core/text-transform5#@desc Text transform on cells in column sponsor_case using expression value.toUppercase()
+#@param col-name:sponsor_case
+#@param expression:value.toUppercase()
+#@in table6
+#@out table7
+#@end core/text-transform5
+#@begin core/column-addition1#@desc Create column sponsor_grel at index 4 based on column sponsor_case using expression jython:return value
+#@param col-name:sponsor_case
+#@param newColumnName:"sponsor_grel"
+#@in table7
+#@out table8
+#@end core/column-addition1
+#@begin core/text-transform6#@desc Text transform on cells in column sponsor_grel using expression grel:value.replace(/^\((.*)\)$/,\"$1\").replace(/^\[(.*)\]$/,\"$1\")
+#@param col-name:sponsor_grel
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in table8
+#@out table9
+#@end core/text-transform6
+#@begin core/column-addition2#@desc Create column sponsor_cluster at index 5 based on column sponsor_grel using expression grel:value
+#@param col-name:sponsor_grel
+#@param newColumnName:"sponsor_cluster"
+#@in table9
+#@out table10
+#@end core/column-addition2
+#@begin core/mass-edit0#@desc Mass edit cells in column sponsor_cluster
+#@param col-name:sponsor_cluster
+#@in table10
+#@out table11
+#@end core/mass-edit0
+#@begin core/column-addition3#@desc Create column sponsor_uncertain at index 5 based on column sponsor_grel using expression jython:if '?' in value:
+    return 1
+else:
+    return 0
+#@param col-name:sponsor_grel
+#@param newColumnName:"sponsor_uncertain"
+#@in table11
+#@out table12
+#@end core/column-addition3
+#@begin core/text-transform7#@desc Text transform on cells in column event using expression value.trim()
+#@param col-name:event
+#@param expression:value.trim()
+#@in table12
+#@out table13
+#@end core/text-transform7
+#@begin core/text-transform8#@desc Text transform on cells in column event using expression value.replace(/\s+/,' ')
+#@param col-name:event
+#@param expression:value.replace(/\s+/,'_')
+#@in table13
+#@out table14
+#@end core/text-transform8
+#@begin core/column-addition4#@desc Create column event_case at index 8 based on column event using expression jython:return value
+#@param col-name:event
+#@param newColumnName:"event_case"
+#@in table14
+#@out table15
+#@end core/column-addition4
+#@begin core/text-transform9#@desc Text transform on cells in column event_case using expression value.toUppercase()
+#@param col-name:event_case
+#@param expression:value.toUppercase()
+#@in table15
+#@out table16
+#@end core/text-transform9
+#@begin core/column-addition5#@desc Create column event_grel at index 9 based on column event_case using expression jython:return value
+#@param col-name:event_case
+#@param newColumnName:"event_grel"
+#@in table16
+#@out table17
+#@end core/column-addition5
+#@begin core/text-transform10#@desc Text transform on cells in column event_grel using expression grel:value.replace(/^\((.*)\)$/,\"$1\").replace(/^\[(.*)\]$/,\"$1\")
+#@param col-name:event_grel
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in table17
+#@out table18
+#@end core/text-transform10
+#@begin core/column-addition6#@desc Create column event_cluster at index 10 based on column event_grel using expression grel:value
+#@param col-name:event_grel
+#@param newColumnName:"event_cluster"
+#@in table18
+#@out table19
+#@end core/column-addition6
+#@begin core/mass-edit1#@desc Mass edit cells in column event_cluster
+#@param col-name:event_cluster
+#@in table19
+#@out table20
+#@end core/mass-edit1
+#@begin core/column-addition7#@desc Create column event_uncertain at index 10 based on column event_grel using expression jython:if '?' in value:
+    return 1
+else:
+    return 0
+#@param col-name:event_grel
+#@param newColumnName:"event_uncertain"
+#@in table20
+#@out table21
+#@end core/column-addition7
+#@begin core/text-transform11#@desc Text transform on cells in column venue using expression value.trim()
+#@param col-name:venue
+#@param expression:value.trim()
+#@in table21
+#@out table22
+#@end core/text-transform11
+#@begin core/text-transform12#@desc Text transform on cells in column venue using expression value.replace(/\s+/,' ')
+#@param col-name:venue
+#@param expression:value.replace(/\s+/,'_')
+#@in table22
+#@out table23
+#@end core/text-transform12
+#@begin core/column-addition8#@desc Create column venue_case at index 13 based on column venue using expression jython:return value
+#@param col-name:venue
+#@param newColumnName:"venue_case"
+#@in table23
+#@out table24
+#@end core/column-addition8
+#@begin core/text-transform13#@desc Text transform on cells in column venue_case using expression value.toUppercase()
+#@param col-name:venue_case
+#@param expression:value.toUppercase()
+#@in table24
+#@out table25
+#@end core/text-transform13
+#@begin core/column-addition9#@desc Create column venue_count at index 14 based on column venue_case using expression jython:return len(value.replace(';',',').split(','))
+#@param col-name:venue_case
+#@param newColumnName:"venue_count"
+#@in table25
+#@out table26
+#@end core/column-addition9
+#@begin core/column-addition10#@desc Create column value_5 at index 14 based on column venue_case using expression jython:if len(value.replace(';',',').split(','))>=5:
+    return value.replace(';',',').split(',')[4]
+else:
+    return ''
+#@param col-name:venue_case
+#@param newColumnName:"value_5"
+#@in table26
+#@out table27
+#@end core/column-addition10
+#@begin core/column-addition11#@desc Create column vlaue_4 at index 14 based on column venue_case using expression jython:if len(value.replace(';',',').split(','))>=4:
+    return value.replace(';',',').split(',')[3]
+else:
+    return ''
+#@param col-name:venue_case
+#@param newColumnName:"vlaue_4"
+#@in table27
+#@out table28
+#@end core/column-addition11
+#@begin core/column-addition12#@desc Create column value_3 at index 14 based on column venue_case using expression jython:if len(value.replace(';',',').split(','))>=3:
+    return value.replace(';',',').split(',')[2]
+else:
+    return ''
+#@param col-name:venue_case
+#@param newColumnName:"value_3"
+#@in table28
+#@out table29
+#@end core/column-addition12
+#@begin core/column-addition13#@desc Create column value_2 at index 14 based on column venue_case using expression jython:if len(value.replace(';',',').split(','))>=2:
+    return value.replace(';',',').split(',')[1]
+else:
+    return ''
+#@param col-name:venue_case
+#@param newColumnName:"value_2"
+#@in table29
+#@out table30
+#@end core/column-addition13
+#@begin core/column-addition14#@desc Create column value_1 at index 14 based on column venue_case using expression jython:if len(value.replace(';',',').split(','))>=1:
+    return value.replace(';',',').split(',')[0]
+else:
+    return ''
+#@param col-name:venue_case
+#@param newColumnName:"value_1"
+#@in table30
+#@out table31
+#@end core/column-addition14
+#@begin core/mass-edit2#@desc Mass edit cells in column value_1
+#@param col-name:value_1
+#@in table31
+#@out table32
+#@end core/mass-edit2
+#@begin core/mass-edit3#@desc Mass edit cells in column value_2
+#@param col-name:value_2
+#@in table32
+#@out table33
+#@end core/mass-edit3
+#@begin core/column-addition15#@desc Create column venue_uncertain at index 14 based on column venue_case using expression jython:if '?' in value:
+    return 1
+else:
+    return 0
+#@param col-name:venue_case
+#@param newColumnName:"venue_uncertain"
+#@in table33
+#@out table34
+#@end core/column-addition15
+#@begin core/column-rename0#@desc Rename column value_1 to venue_1
+#@param oldColumnName:value_1
+#@param newColumnName:venue_1
+#@in table34
+#@out table35
+#@end core/column-rename0
+#@begin core/column-rename1#@desc Rename column value_2 to venue_2
+#@param oldColumnName:value_2
+#@param newColumnName:venue_2
+#@in table35
+#@out table36
+#@end core/column-rename1
+#@begin core/column-rename2#@desc Rename column value_3 to venue_3
+#@param oldColumnName:value_3
+#@param newColumnName:venue_3
+#@in table36
+#@out table37
+#@end core/column-rename2
+#@begin core/column-rename3#@desc Rename column vlaue_4 to venue_4
+#@param oldColumnName:vlaue_4
+#@param newColumnName:venue_4
+#@in table37
+#@out table38
+#@end core/column-rename3
+#@begin core/column-rename4#@desc Rename column value_5 to venue_5
+#@param oldColumnName:value_5
+#@param newColumnName:venue_5
+#@in table38
+#@out table39
+#@end core/column-rename4
+#@begin core/text-transform14#@desc Text transform on cells in column place using expression value.trim()
+#@param col-name:place
+#@param expression:value.trim()
+#@in table39
+#@out table40
+#@end core/text-transform14
+#@begin core/text-transform15#@desc Text transform on cells in column place using expression value.replace(/\s+/,' ')
+#@param col-name:place
+#@param expression:value.replace(/\s+/,'_')
+#@in table40
+#@out table41
+#@end core/text-transform15
+#@begin core/column-addition16#@desc Create column place_case at index 22 based on column place using expression jython:return value
+#@param col-name:place
+#@param newColumnName:"place_case"
+#@in table41
+#@out table42
+#@end core/column-addition16
+#@begin core/text-transform16#@desc Text transform on cells in column place_case using expression value.toUppercase()
+#@param col-name:place_case
+#@param expression:value.toUppercase()
+#@in table42
+#@out table43
+#@end core/text-transform16
+#@begin core/column-addition17#@desc Create column place_cluster at index 23 based on column place_case using expression jython:return value
+#@param col-name:place_case
+#@param newColumnName:"place_cluster"
+#@in table43
+#@out table44
+#@end core/column-addition17
+#@begin core/mass-edit4#@desc Mass edit cells in column place_cluster
+#@param col-name:place_cluster
+#@in table44
+#@out table45
+#@end core/mass-edit4
+#@begin core/column-addition18#@desc Create column place_uncertain at index 23 based on column place_case using expression jython:if '?' in value:
+    return 1
+else:
+    return 0
+#@param col-name:place_case
+#@param newColumnName:"place_uncertain"
+#@in table45
+#@out table46
+#@end core/column-addition18
+#@begin core/column-addition19#@desc Create column place_grel at index 25 based on column place_cluster using expression grel:value.replace(';','')
+#@param col-name:place_cluster
+#@param newColumnName:"place_grel"
+#@in table46
+#@out table47
+#@end core/column-addition19
+#@begin core/text-transform17#@desc Text transform on cells in column physical_description using expression value.trim()
+#@param col-name:physical_description
+#@param expression:value.trim()
+#@in table47
+#@out table48
+#@end core/text-transform17
+#@begin core/text-transform18#@desc Text transform on cells in column physical_description using expression value.replace(/\s+/,' ')
+#@param col-name:physical_description
+#@param expression:value.replace(/\s+/,'_')
+#@in table48
+#@out table49
+#@end core/text-transform18
+#@begin core/column-addition20#@desc Create column physical_description_case at index 27 based on column physical_description using expression grel:value
+#@param col-name:physical_description
+#@param newColumnName:"physical_description_case"
+#@in table49
+#@out table50
+#@end core/column-addition20
+#@begin core/text-transform19#@desc Text transform on cells in column physical_description_case using expression value.toUppercase()
+#@param col-name:physical_description_case
+#@param expression:value.toUppercase()
+#@in table50
+#@out table51
+#@end core/text-transform19
+#@begin core/column-addition21#@desc Create column physical_description_count at index 28 based on column physical_description_case using expression jython:return len(value.split(';'))
+#@param col-name:physical_description_case
+#@param newColumnName:"physical_description_count"
+#@in table51
+#@out table52
+#@end core/column-addition21
+#@begin core/column-split0#@desc Split column physical_description_case by separator
+#@param col-name:physical_description_case
+#@param separator:";"
+#@param removeOriginalColumn:False
+#@in table52
+#@out table53
+#@end core/column-split0
+#@begin core/column-rename5#@desc Rename column physical_description_case 1 to physical_description_1
+#@param oldColumnName:physical_description_case_1
+#@param newColumnName:physical_description_1
+#@in table53
+#@out table54
+#@end core/column-rename5
+#@begin core/column-rename6#@desc Rename column physical_description_case 2 to physical_description_2
+#@param oldColumnName:physical_description_case_2
+#@param newColumnName:physical_description_2
+#@in table54
+#@out table55
+#@end core/column-rename6
+#@begin core/column-rename7#@desc Rename column physical_description_case 3 to physical_description_3
+#@param oldColumnName:physical_description_case_3
+#@param newColumnName:physical_description_3
+#@in table55
+#@out table56
+#@end core/column-rename7
+#@begin core/column-rename8#@desc Rename column physical_description_case 4 to physical_description_4
+#@param oldColumnName:physical_description_case_4
+#@param newColumnName:physical_description_4
+#@in table56
+#@out table57
+#@end core/column-rename8
+#@begin core/column-rename9#@desc Rename column physical_description_case 5 to physical_description_5
+#@param oldColumnName:physical_description_case_5
+#@param newColumnName:physical_description_5
+#@in table57
+#@out table58
+#@end core/column-rename9
+#@begin core/column-rename10#@desc Rename column physical_description_case 6 to physical_description_6
+#@param oldColumnName:physical_description_case_6
+#@param newColumnName:physical_description_6
+#@in table58
+#@out table59
+#@end core/column-rename10
+#@begin core/text-transform20#@desc Text transform on cells in column occasion using expression value.trim()
+#@param col-name:occasion
+#@param expression:value.trim()
+#@in table59
+#@out table60
+#@end core/text-transform20
+#@begin core/text-transform21#@desc Text transform on cells in column occasion using expression value.replace(/\s+/,' ')
+#@param col-name:occasion
+#@param expression:value.replace(/\s+/,'_')
+#@in table60
+#@out table61
+#@end core/text-transform21
+#@begin core/column-addition22#@desc Create column occasion_case at index 36 based on column occasion using expression jython:return value
+#@param col-name:occasion
+#@param newColumnName:"occasion_case"
+#@in table61
+#@out table62
+#@end core/column-addition22
+#@begin core/text-transform22#@desc Text transform on cells in column occasion_case using expression value.toUppercase()
+#@param col-name:occasion_case
+#@param expression:value.toUppercase()
+#@in table62
+#@out table63
+#@end core/text-transform22
+#@begin core/column-addition23#@desc Create column occasion_grel at index 37 based on column occasion_case using expression grel:value.replace(/^\((.*)\)$/,\"$1\").replace(/^\[(.*)\]$/,\"$1\")
+#@param col-name:occasion_case
+#@param newColumnName:"occasion_grel"
+#@in table63
+#@out table64
+#@end core/column-addition23
+#@begin core/column-split1#@desc Split column occasion_grel by separator
+#@param col-name:occasion_grel
+#@param separator:";"
+#@param removeOriginalColumn:False
+#@in table64
+#@out table65
+#@end core/column-split1
+#@begin core/column-rename11#@desc Rename column occasion_grel 1 to occasion_1
+#@param oldColumnName:occasion_grel_1
+#@param newColumnName:occasion_1
+#@in table65
+#@out table66
+#@end core/column-rename11
+#@begin core/column-rename12#@desc Rename column occasion_grel 2 to occasion_2
+#@param oldColumnName:occasion_grel_2
+#@param newColumnName:occasion_2
+#@in table66
+#@out table67
+#@end core/column-rename12
+#@begin core/text-transform23#@desc Text transform on cells in column occasion_1 using expression grel:value.replace(/^\((.*)\)$/,\"$1\").replace(/^\[(.*)\]$/,\"$1\")
+#@param col-name:occasion_1
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in table67
+#@out table68
+#@end core/text-transform23
+#@begin core/text-transform24#@desc Text transform on cells in column occasion_2 using expression grel:value.replace(/^\((.*)\)$/,\"$1\").replace(/^\[(.*)\]$/,\"$1\")
+#@param col-name:occasion_2
+#@param expression:grel:value.replace(/^\((.*)\)$/,"$1").replace(/^\[(.*)\]$/,"$1")
+#@in table68
+#@out table69
+#@end core/text-transform24
+#@begin core/mass-edit5#@desc Mass edit cells in column occasion_1
+#@param col-name:occasion_1
+#@in table69
+#@out table70
+#@end core/mass-edit5
+#@begin core/mass-edit6#@desc Mass edit cells in column occasion_2
+#@param col-name:occasion_2
+#@in table70
+#@out table71
+#@end core/mass-edit6
+#@begin core/column-addition24#@desc Create column occassion_uncertain at index 38 based on column occasion_grel using expression jython:if value is not None and '?' in value:
+    return 1
+else:
+    return 0
+#@param col-name:occasion_grel
+#@param newColumnName:"occassion_uncertain"
+#@in table71
+#@out table72
+#@end core/column-addition24
+#@begin core/column-removal0#@desc Remove column keywords
+#@param col-name:keywords
+#@in table72
+#@out table73
+#@end core/column-removal0
+#@begin core/column-removal1#@desc Remove column language
+#@param col-name:language
+#@in table73
+#@out table74
+#@end core/column-removal1
+#@begin core/text-transform25#@desc Text transform on cells in column date using expression value.toDate()
+#@param col-name:date
+#@param expression:value.toDate()
+#@in table74
+#@out table75
+#@end core/text-transform25
+#@begin core/text-transform26#@desc Text transform on cells in column location using expression value.trim()
+#@param col-name:location
+#@param expression:value.trim()
+#@in table75
+#@out table76
+#@end core/text-transform26
+#@begin core/text-transform27#@desc Text transform on cells in column location using expression value.replace(/\s+/,' ')
+#@param col-name:location
+#@param expression:value.replace(/\s+/,'_')
+#@in table76
+#@out table77
+#@end core/text-transform27
+#@begin core/column-addition25#@desc Create column location_case at index 45 based on column location using expression jython:return value.upper()
+#@param col-name:location
+#@param newColumnName:"location_case"
+#@in table77
+#@out table78
+#@end core/column-addition25
+#@begin core/column-addition26#@desc Create column location_grel at index 46 based on column location_case using expression grel:value.replace(/^\((.*)\)$/,\"$1\").replace(/^\[(.*)\]$/,\"$1\")
+#@param col-name:location_case
+#@param newColumnName:"location_grel"
+#@in table78
+#@out table79
+#@end core/column-addition26
+#@begin core/column-addition27#@desc Create column location_cluster at index 47 based on column location_grel using expression grel:value
+#@param col-name:location_grel
+#@param newColumnName:"location_cluster"
+#@in table79
+#@out table80
+#@end core/column-addition27
+#@begin core/mass-edit7#@desc Mass edit cells in column location_cluster
+#@param col-name:location_cluster
+#@in table80
+#@out table81
+#@end core/mass-edit7
+#@begin core/column-addition28#@desc Create column location_uncertain at index 47 based on column location_grel using expression jython:if '?' in value:
+    return 1
+else:
+    return 0
+#@param col-name:location_grel
+#@param newColumnName:"location_uncertain"
+#@in table81
+#@out table82
+#@end core/column-addition28
+#@begin core/column-removal2#@desc Remove column location_type
+#@param col-name:location_type
+#@in table82
+#@out table83
+#@end core/column-removal2
+#@begin core/text-transform28#@desc Text transform on cells in column currency using expression value.trim()
+#@param col-name:currency
+#@param expression:value.trim()
+#@in table83
+#@out table84
+#@end core/text-transform28
+#@begin core/text-transform29#@desc Text transform on cells in column currency using expression value.replace(/\s+/,' ')
+#@param col-name:currency
+#@param expression:value.replace(/\s+/,'_')
+#@in table84
+#@out table85
+#@end core/text-transform29
+#@begin core/column-addition29#@desc Create column currency_case at index 50 based on column currency using expression jython:return value.upper()
+#@param col-name:currency
+#@param newColumnName:"currency_case"
+#@in table85
+#@out table86
+#@end core/column-addition29
+#@begin core/text-transform30#@desc Text transform on cells in column page_count using expression value.toNumber()
+#@param col-name:page_count
+#@param expression:value.toNumber()
+#@in table86
+#@out table87
+#@end core/text-transform30
+#@begin core/text-transform31#@desc Text transform on cells in column dish_count using expression value.toNumber()
+#@param col-name:dish_count
+#@param expression:value.toNumber()
+#@in table87
+#@out table88
+#@end core/text-transform31
+#@end Linear_OR
